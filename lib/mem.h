@@ -22,7 +22,7 @@ struct mem {
 #pragma pack(pop)
 
 #define BLOCK_SIZE sizeof(struct mem)
-////////////////void* firstll = NULL; // o primeiro bloco 
+
 
 void* _malloc(size_t query);
 void* _calloc(size_t nitems, size_t size);
