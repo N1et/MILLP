@@ -25,6 +25,7 @@ struct mem {
 ////////////////void* firstll = NULL; // o primeiro bloco 
 
 void* _malloc(size_t query);
+void* _calloc(size_t nitems, size_t size);
 void _free(void* mem);
 void* heap_init(size_t initial_size);
 void* new_space(void* addr, size_t totalsize);

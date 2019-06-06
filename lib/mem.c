@@ -1,5 +1,14 @@
 #include "mem.h"
 
+void* _calloc(size_t nitems, size_t size){
+	size_t totalsize = nitems*size;
+	size_t count;
+	void* bf = _malloc(totalsize);
+	
+	for(count=0; count<totalsize; count++) 
+		((char*)bf)[count] = 0;
+	return bf;
+}
 void* _malloc(size_t query){
 	size_t allocsize = query >= BLOCK_MIN_SIZE ? query : BLOCK_MIN_SIZE;
 	struct mem* block = find_block(HEAP_START, query);
@@ -33,10 +42,11 @@ void _free(void* blk){
 
 void trysplit(struct mem* blk, size_t query){
 	struct mem* newblock;
-	size_t blksize = blk->capacity - query;
-	if(blksize < BLOCK_SIZE)
+	size_t blksize = blk->capacity - query - BLOCK_SIZE;// MUDANÇA
+	size_t totalblocksize = query + BLOCK_SIZE;
+	if(blksize <= 0)
 		return;
-	newblock = (struct mem*)((char *)blk + query);
+	newblock = (struct mem*)((char *)blk + totalblocksize);
 	newblock->capacity = blksize;
 	newblock->next = blk->next;
 	newblock->is_free = true;
